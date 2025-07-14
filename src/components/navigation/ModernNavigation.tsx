@@ -65,7 +65,7 @@ const ModernNavigation = () => {
               <button
                 key={item.key}
                 onClick={() => scrollToSection(item.key)}
-                className="text-foreground/80 hover:text-foreground transition-colors font-light text-md tracking-wide hover:text-[#FFAA00] focus:text-[#FFAA00]"
+                className="text-foreground/80 transition-colors font-light text-md tracking-wide hover:text-[#FFAA00] focus:text-[#FFAA00]"
               >
                 {item.label}
               </button>
