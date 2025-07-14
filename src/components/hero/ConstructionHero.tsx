@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Play } from 'lucide-react';
+import { Play } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import InlineQuoteForm from '@/components/quote/InlineQuoteForm';
-import constructionWorkers from '@/assets/construction-workers.jpg';
 
 const ConstructionHero = () => {
   const [loaded, setLoaded] = useState(false);
@@ -42,7 +41,6 @@ const ConstructionHero = () => {
           <div className="absolute inset-0 bg-black/60" />
         </div>
 
-        {/* Skanska-style geometric overlay */}
         <div className="absolute inset-0 z-10">
           {/* Curved geometric shapes */}
           <div className="absolute top-0 right-0 w-1/3 h-full">
@@ -59,13 +57,11 @@ const ConstructionHero = () => {
           </div>
         </div>
 
-        {/* Content Container - Skanska style layout */}
         <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center min-h-[80vh]">
             
             {/* Left Column - Text Content */}
             <div className="space-y-8 text-white">
-              {/* Main Heading - Modern typography style */}
               <h1 
                 className={`text-5xl sm:text-6xl md:text-7xl font-light leading-tight transform transition-all duration-700 delay-100 ${
                   loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"

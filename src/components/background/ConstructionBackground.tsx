@@ -31,7 +31,7 @@ const ConstructionBackground = () => {
           />
         </div>
         
-        {/* Skanska-style geometric overlays */}
+        {/* Geometric overlays */}
         <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-primary/5 rounded-full blur-3xl" />
         <div className="absolute bottom-1/4 right-1/4 w-48 h-48 bg-accent/5 rounded-full blur-2xl" />
         

@@ -92,7 +92,7 @@ const ProjectsScroll = () => {
 
   return (
     <section id="projects">
-      {/* Category Filter - Skanska style */}
+      {/* Category Filter */}
       <div className="bg-background py-12 sticky top-16 z-40 border-b border-border shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8">
@@ -104,7 +104,7 @@ const ProjectsScroll = () => {
             </p>
           </div>
           
-          <div className="flex flex-wrap justify-center gap-3">{/* Skanska-style spacing */}
+          <div className="flex flex-wrap justify-center gap-3">
             {categories.map((category) => (
               <Button
                 key={category}
