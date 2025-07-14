@@ -93,18 +93,18 @@ const ProjectsScroll = () => {
   return (
     <section id="projects">
       {/* Category Filter */}
-      <div className="bg-background py-12 sticky top-16 z-40 border-b border-border shadow-sm">
+      <div className="bg-background py-6 sticky top-16 z-40 border-b border-border shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8">
             <h2 className="text-4xl sm:text-5xl font-light text-foreground mb-4">
               I Nostri Progetti
             </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto font-light">
+            <p className="md:text-xl sm:text-md text-muted-foreground max-w-3xl mx-auto font-light">
               Esplora i nostri lavori e il loro impatto sociale nella comunità
             </p>
           </div>
           
-          <div className="flex flex-wrap justify-center gap-3">
+          <div className="flex flex-wrap justify-center gap-1">
             {categories.map((category) => (
               <Button
                 key={category}
