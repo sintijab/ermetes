@@ -26,7 +26,7 @@ const ConstructionHero = () => {
         {/* YouTube Video Background */}
         <div className="absolute inset-0 z-0">
           <iframe
-            src="https://www.youtube.com/embed/7nV5lxgNLS0?autoplay=1&mute=1&loop=1&playlist=7nV5lxgNLS0&controls=0&showinfo=0&rel=0&modestbranding=1"
+            src="https://www.youtube.com/embed/Bdl1qJ7czm4?autoplay=1&mute=1&loop=1&playlist=Bdl1qJ7czm4&controls=0&showinfo=0&rel=0&modestbranding=1"
             allow="autoplay; encrypted-media"
             allowFullScreen
             className="w-full h-full object-cover"
