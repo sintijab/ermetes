@@ -1,0 +1,165 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+@import "tailwindcss";
+
+
+.dm-sans-light {
+  font-family: "DM Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 100;
+  font-style: normal;
+}
+
+
+
+@layer base {
+  :root {
+    /* Skanska color palette */
+    --background: 0 0% 100%;
+    --foreground: 220 9% 18%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 220 9% 18%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 9% 18%;
+
+    /* Skanska primary blue */
+    --primary: 216 100% 31%;
+    --primary-foreground: 0 0% 98%;
+
+    /* Skanska green accent */
+    --secondary: 120 60% 50%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 46%;
+
+    /* Skanska green for accents */
+    --accent: 120 60% 50%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214 31% 91%;
+    --input: 214 31% 91%;
+    --ring: 216 100% 31%;
+
+    --radius: 8px;
+    
+    /* Skanska specific design tokens */
+    --skanska-blue: 216 100% 31%;
+    --skanska-blue-light: 216 100% 40%;
+    --skanska-green: 120 60% 50%;
+    --skanska-green-light: 120 60% 60%;
+    --skanska-gray: 220 9% 18%;
+    --skanska-gray-light: 215 16% 46%;
+    --skanska-gray-bg: 210 40% 96%;
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--skanska-blue)), hsl(var(--skanska-blue-light)));
+    --gradient-hero: linear-gradient(135deg, hsl(var(--skanska-blue) / 0.95), hsl(var(--skanska-gray) / 0.9));
+    
+    /* Shadows - Skanska style */
+    --shadow-skanska: 0 8px 32px -8px hsl(var(--skanska-blue) / 0.2);
+    --shadow-card: 0 1px 3px 0 hsl(220 9% 18% / 0.1), 0 1px 2px 0 hsl(220 9% 18% / 0.06);
+    --shadow-lg: 0 10px 15px -3px hsl(220 9% 18% / 0.1), 0 4px 6px -2px hsl(220 9% 18% / 0.05);
+    
+    /* Typography - Editorial Style */
+    --font-heading: 'Playfair Display', Georgia, serif;
+    --font-body: 'Inter', system-ui, sans-serif;
+    --font-editorial: 'Playfair Display', Georgia, serif;
+    --font-light: 300;
+    --font-normal: 400;
+    --font-medium: 500;
+    --font-semibold: 600;
+    
+    /* Transitions */
+    --transition-smooth: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    --transition-fast: all 0.15s ease-out;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 213 16% 22%;
+    --foreground: 210 40% 98%;
+
+    --card: 213 16% 22%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 213 16% 22%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 213 94% 45%;
+    --primary-foreground: 213 16% 22%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 42 87% 55%;
+    --accent-foreground: 213 16% 22%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 213 94% 45%;
+    
+    /* Construction-specific colors - dark mode */
+    --construction-blue: 213 94% 45%;
+    --construction-blue-light: 213 94% 55%;
+    --construction-orange: 42 87% 60%;
+    --construction-gray: 210 40% 98%;
+    --construction-gray-light: 215 20.2% 65.1%;
+    
+    /* Gradients - dark mode */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary) / 0.8));
+    --gradient-hero: linear-gradient(135deg, hsl(var(--construction-blue) / 0.9), hsl(var(--background) / 0.95));
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+body {
+  @apply bg-background text-foreground font-light;
+}
+
+/* Modern typography classes */
+.font-light { font-weight: var(--font-light); }
+.font-normal { font-weight: var(--font-normal); }
+.font-medium { font-weight: var(--font-medium); }
+.font-semibold { font-weight: var(--font-semibold); }
+}

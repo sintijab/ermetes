@@ -1,0 +1,60 @@
+{
+  "it": [
+    {
+      "id": 1,
+      "title": "L'Importanza della Sostenibilità in Edilizia",
+      "excerpt": "Come le tecniche di costruzione sostenibile stanno trasformando il settore edilizio",
+      "date": "2024-01-15",
+      "image": "/placeholder-construction.jpg",
+      "category": "Sostenibilità",
+      "readTime": "5 min"
+    },
+    {
+      "id": 2,
+      "title": "Innovazione nei Materiali da Costruzione",
+      "excerpt": "I nuovi materiali che stanno rivoluzionando il modo di costruire",
+      "date": "2024-01-10",
+      "image": "/placeholder-materials.jpg",
+      "category": "Innovazione",
+      "readTime": "7 min"
+    },
+    {
+      "id": 3,
+      "title": "Progetti di Riqualificazione Urbana",
+      "excerpt": "Come stiamo contribuendo alla riqualificazione del territorio trentino",
+      "date": "2024-01-05",
+      "image": "/placeholder-urban.jpg",
+      "category": "Progetti",
+      "readTime": "6 min"
+    }
+  ],
+  "en": [
+    {
+      "id": 1,
+      "title": "The Importance of Sustainability in Construction",
+      "excerpt": "How sustainable construction techniques are transforming the building industry",
+      "date": "2024-01-15",
+      "image": "/placeholder-construction.jpg",
+      "category": "Sustainability",
+      "readTime": "5 min"
+    },
+    {
+      "id": 2,
+      "title": "Innovation in Construction Materials",
+      "excerpt": "New materials that are revolutionizing the way we build",
+      "date": "2024-01-10",
+      "image": "/placeholder-materials.jpg",
+      "category": "Innovation",
+      "readTime": "7 min"
+    },
+    {
+      "id": 3,
+      "title": "Urban Redevelopment Projects",
+      "excerpt": "How we are contributing to the redevelopment of the Trentino territory",
+      "date": "2024-01-05",
+      "image": "/placeholder-urban.jpg",
+      "category": "Projects",
+      "readTime": "6 min"
+    }
+  ]
+}
