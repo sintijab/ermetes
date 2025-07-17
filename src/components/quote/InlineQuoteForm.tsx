@@ -65,58 +65,107 @@ const InlineQuoteForm = () => {
 
   const handleSubmit = async () => {
     setIsSubmitting(true);
-    const form = new FormData();
-    Object.keys(formData).forEach((key) => {
-      if (key === 'images' && formData.images instanceof FileList) {
-        Array.from(formData.images).forEach((file, idx) => {
-          form.append(`images_${idx+1}`, file);
-        });
-      } else if (key === 'projectFile' && formData.projectFile instanceof File) {
-        form.append('projectFile', formData.projectFile);
-      } else if (key === 'metricFile' && formData.metricFile instanceof File) {
-        form.append('metricFile', formData.metricFile);
-      } else if (
-        key !== 'images' && key !== 'projectFile' && key !== 'metricFile'
-      ) {
-        form.append(key, formData[key]);
-      }
-    });
-
-    // Debug: log all FormData keys and values
-    for (let pair of form.entries()) {
-      console.log(pair[0], pair[1]);
-    }
-
-    try {
-      await fetch('https://script.google.com/macros/s/AKfycbxkSY9JVdICBvU84yiuhdY7N7UAcxZYYwH1D57h27NDme9wW3fPHKpgK2kVdIH9XAc0Ig/exec', {
-        method: 'POST',
-        body: form,
+    // Helper to convert file to raw base64 (no data URL)
+    function fileToBase64(file: File): Promise<string> {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          if (typeof reader.result === 'string') {
+            // Extract only the base64 part
+            const base64 = reader.result.split(',')[1];
+            resolve(base64);
+          } else {
+            reject(new Error('FileReader result is not a string'));
+          }
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
       });
-    } catch (e) {
-      console.error(e);
     }
-    toast({
-      title: content.quote.form.toast.successTitle,
-      description: content.quote.form.toast.successDescription,
-    });
-    closeModal();
-    // Reset form
-    setFormData({
-      projectType: '',
-      projectDetails: '',
-      budget: '',
-      timeline: '',
-      address: '',
-      name: '',
-      phone: '',
-      email: '',
-      message: '',
-      images: null,
-      projectFile: null,
-      metricFile: null
-    });
-    setCurrentStep(1);
-    setIsSubmitting(false);
+
+    // Prepare data
+    let data = {
+      projectType: formData.projectType,
+      projectDetails: formData.projectDetails,
+      budget: formData.budget,
+      timeline: formData.timeline,
+      address: formData.address,
+      name: formData.name,
+      phone: formData.phone,
+      email: formData.email,
+      message: formData.message,
+      images: [],
+      projectFile: '',
+      metricFile: ''
+    };
+
+    // Encode files (send raw base64)
+    if (formData.images instanceof FileList) {
+      for (let i = 0; i < formData.images.length; i++) {
+        // eslint-disable-next-line no-await-in-loop
+        data.images.push({
+          name: formData.images[i].name,
+          type: formData.images[i].type,
+          content: await fileToBase64(formData.images[i]) // raw base64
+        });
+      }
+    }
+    if (formData.projectFile instanceof File) {
+      data.projectFile = JSON.stringify({
+        name: formData.projectFile.name,
+        type: formData.projectFile.type,
+        content: await fileToBase64(formData.projectFile) // raw base64
+      });
+    }
+    if (formData.metricFile instanceof File) {
+      data.metricFile = JSON.stringify({
+        name: formData.metricFile.name,
+        type: formData.metricFile.type,
+        content: await fileToBase64(formData.metricFile) // raw base64
+      });
+    }
+
+    // Serialize as x-www-form-urlencoded
+    const params = Object.keys(data)
+      .map(key => {
+        if (Array.isArray(data[key])) {
+          return data[key].map((v, i) => `${encodeURIComponent(key + '_' + i)}=${encodeURIComponent(JSON.stringify(v))}`).join('&');
+        } else {
+          return `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`;
+        }
+      })
+      .join('&');
+
+    // Send via XMLHttpRequest
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', 'https://script.google.com/macros/s/AKfycbyUuM-eX-XfBckXyWm1k6K8LCl3HX_AAWa7xE_Icg-rsUXqKyeE1rqu7djxPMVV7Nkbvw/exec');
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4) {
+        toast({
+          title: content.quote.form.toast.successTitle,
+          description: content.quote.form.toast.successDescription,
+        });
+        closeModal();
+        setFormData({
+          projectType: '',
+          projectDetails: '',
+          budget: '',
+          timeline: '',
+          address: '',
+          name: '',
+          phone: '',
+          email: '',
+          message: '',
+          images: null,
+          projectFile: null,
+          metricFile: null
+        });
+        setCurrentStep(1);
+        setIsSubmitting(false);
+      }
+    };
+    xhr.send(params);
   };
 
   const isStepValid = () => {
