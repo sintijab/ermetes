@@ -14,6 +14,7 @@ const serviceImages = ['./assets/construction-1.jpg', './assets/construction-2.j
 
 const ServicesSection = () => {
   const { content } = useLanguage();
+  // Modal logic removed
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -153,7 +154,7 @@ const ServicesSection = () => {
       </div>
 
       {/* Company Information Section */}
-      <div className="bg-white py-20">
+      <div id="about" className="bg-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
             <div className="bg-gradient-to-br from-[#00338D]/5 to-[#00338D]/10 rounded-2xl p-8 border border-[#00338D]/20">
@@ -198,22 +199,12 @@ const ServicesSection = () => {
       <div className="bg-gradient-to-r from-[#00338D] to-[#0066CC] py-16">
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
           <h3 className="text-3xl font-light text-white mb-6">
-            Pronto per Iniziare il Tuo Progetto?
+            {content.services.ctaTitle}
           </h3>
           <p className="text-xl text-white/90 font-light mb-8">
-            Contattaci per un preventivo gratuito e personalizzato
+            {content.services.ctaDescription}
           </p>
-          <Button 
-            size="lg" 
-            className="bg-white text-[#00338D] hover:bg-gray-100 px-8 py-4 text-lg font-medium group rounded-lg shadow-lg"
-            onClick={() => {
-              const element = document.getElementById('hero');
-              if (element) element.scrollIntoView({ behavior: 'smooth' });
-            }}
-          >
-            Richiedi un Preventivo Gratuito
-            <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-          </Button>
+          {/* Removed modal trigger button for quote request */}
         </div>
       </div>
     </section>

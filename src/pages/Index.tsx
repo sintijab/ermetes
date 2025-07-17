@@ -1,5 +1,6 @@
 
 import React from "react";
+import InlineQuoteFormTrigger from "@/components/quote/InlineQuoteFormTrigger";
 import ConstructionBackground from "@/components/background/ConstructionBackground";
 import ModernNavigation from "@/components/navigation/ModernNavigation";
 import ConstructionHero from "@/components/hero/ConstructionHero";
@@ -15,7 +16,10 @@ const Index = () => {
       <ConstructionBackground />
       <div className="relative z-10">
         <ModernNavigation />
-        <ConstructionHero />
+      <ConstructionHero />
+      <div className="flex justify-center my-8">
+        <InlineQuoteFormTrigger />
+      </div>
         <ServicesSection />
         <ProjectsScroll />
         <EditorialSection />

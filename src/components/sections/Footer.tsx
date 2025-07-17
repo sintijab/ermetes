@@ -15,7 +15,7 @@ const Footer = () => {
               <span className="text-xl font-bold">{content.footer.company}</span>
             </div>
             <p className="text-background/80 leading-relaxed">
-              Società Cooperativa Sociale specializzata in edilizia, manutenzioni e servizi con impatto sociale positivo.
+              {content.footer.description}
             </p>
             <div className="flex space-x-4">
               <Facebook className="h-5 w-5 text-background/80 hover:text-background cursor-pointer transition-colors" />
@@ -25,8 +25,8 @@ const Footer = () => {
           </div>
 
           {/* Contact Info */}
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold">Contatti</h3>
+          <div id="contact" className="space-y-4">
+            <h3 className="text-lg font-semibold">{content.footer.contactTitle}</h3>
             <div className="space-y-3">
               <div className="flex items-center space-x-2">
                 <MapPin className="h-4 w-4 text-background/80" />
@@ -51,18 +51,17 @@ const Footer = () => {
 
           {/* Services */}
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold">Servizi</h3>
+            <h3 className="text-lg font-semibold">{content.footer.servicesTitle}</h3>
             <ul className="space-y-2 text-background/80">
-              <li>Edilizia Residenziale</li>
-              <li>Manutenzioni</li>
-              <li>Pulizie Professionali</li>
-              <li>Consulenza Tecnica</li>
+              {content.footer.services.map((service: string, idx: number) => (
+                <li key={idx}>{service}</li>
+              ))}
             </ul>
           </div>
 
           {/* Links */}
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold">Link Utili</h3>
+            <h3 className="text-lg font-semibold">{content.footer.linksTitle}</h3>
             <ul className="space-y-2 text-background/80">
               <li>
                 <a href="#" className="hover:text-background transition-colors">
@@ -81,7 +80,7 @@ const Footer = () => {
               </li>
               <li>
                 <a href="#" className="hover:text-background transition-colors">
-                  Certificazioni
+                  {content.footer.links.certifications}
                 </a>
               </li>
             </ul>
@@ -91,7 +90,7 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="border-t border-background/20 mt-12 pt-8 text-center">
           <p className="text-background/60">
-            © 2025 Sintija Birgele. Tutti i diritti riservati.
+            {content.footer.copyright}
           </p>
         </div>
       </div>

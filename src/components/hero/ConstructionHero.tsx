@@ -67,9 +67,9 @@ const ConstructionHero = () => {
                   loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
                 }`}
               >
-                <span className="block text-white drop-shadow-lg">Costruiamo</span>
-                <span className="block text-accent drop-shadow-lg">il Futuro</span>
-                <span className="block text-white drop-shadow-lg">Insieme</span>
+                <span className="block text-white drop-shadow-lg">{content.hero.title.split(' ')[0]}</span>
+                <span className="block text-accent drop-shadow-lg">{content.hero.title.split(' ').slice(1, 3).join(' ')}</span>
+                <span className="block text-white drop-shadow-lg">{content.hero.title.split(' ').slice(3).join(' ')}</span>
               </h1>
 
               {/* Subtitle */}
@@ -100,7 +100,7 @@ const ConstructionHero = () => {
                   className="border-1 border-white/10 text-white bg-white/20 hover:bg-[#FFAA00] hover:text-white px-8 py-4 text-lg font-medium group rounded-lg"
                 >
                   <Play className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
-                  Scopri i Nostri Progetti
+                  {content.hero.ctaSecondary}
                 </Button>
               </div>
             </div>

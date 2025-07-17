@@ -1,5 +1,126 @@
 {
   "it": {
+    "projectsScroll": {
+      "quoteButton": "Richiedi Preventivo Simile",
+      "detailsButton": "Maggiori Dettagli",
+    "summaryTitle": "Riepilogo Richiesta",
+      "title": "I Nostri Progetti",
+      "subtitle": "Esplora i nostri lavori e il loro impatto sociale nella comunità",
+      "categories": ["Tutti", "Edilizia Residenziale", "Ristrutturazione", "Impatto Sociale", "Manutenzione"],
+      "projects": [
+        {
+          "title": "Rifacimento copertura edificio Trento",
+          "category": "Edilizia Residenziale",
+          "description": "Costruzione di una copertura in legno lamellare per edificio residenziale.",
+          "image": "./assets/Rifacimento copertura edificio Trento.jpg",
+          "icon": "🪵",
+          "extendedInfo": "Struttura del tetto realizzata con travi in legno lamellare, isolamento e barriera al vapore per garantire efficienza energetica e durabilità. Lavoro svolto con attenzione ai dettagli e materiali di alta qualità.",
+          "status": "In corso",
+          "duration": "3 mesi",
+          "budget": "€ 120K",
+          "features": ["Legno Lamellare", "Efficienza Energetica", "Isolamento", "Durabilità"]
+        },
+        {
+          "title": "Ristrutturazione abitazione privata, Trento",
+          "category": "Ristrutturazione",
+          "description": "Installazione di impianto radiante a pavimento e massetto in edificio esistente.",
+          "image": "./assets/Ristrutturazione abitazione privata, Trento.jpg",
+          "icon": "🏡",
+          "extendedInfo": "Lavori di ristrutturazione con posa di impianto di riscaldamento a pavimento, isolamento perimetrale e stesura massetto. Miglioramento comfort abitativo e risparmio energetico.",
+          "status": "Completato",
+          "duration": "2 mesi",
+          "budget": "€ 45K",
+          "features": ["Riscaldamento Radiante", "Isolamento", "Comfort", "Efficienza Energetica"]
+        },
+        {
+          "title": "Ristrutturazione bar Ospedale S.Maurizio Bolzano",
+          "category": "Impatto Sociale",
+          "description": "Realizzazione di interni moderni per attività commerciale con materiali di pregio.",
+          "image": "./assets/Ristrutturazione bar Ospedale S.Maurizio Bolzano.jpg",
+          "icon": "🏢",
+          "extendedInfo": "Progetto chiavi in mano per la realizzazione di un locale commerciale: pavimentazione in legno, illuminazione a LED, arredi su misura e vetrine espositive. Attenzione a design, funzionalità e accessibilità.",
+          "status": "Completato",
+          "duration": "4 mesi",
+          "budget": "€ 200K",
+          "features": ["Design Moderno", "Accessibilità", "Efficienza Energetica", "Materiali di Pregio"]
+        }
+      ]
+    },
+    "pages": {
+      "spazioCommerciale": {
+        "title": "Spazi Commerciali: Design e Funzionalità",
+        "imgAlt": "Spazio commerciale",
+        "paragraph1": "La realizzazione di un ambiente commerciale moderno richiede attenzione ai materiali, all’illuminazione e all’accessibilità. Il progetto ha visto l’utilizzo di pavimentazione in legno, illuminazione a LED e arredi su misura, creando uno spazio funzionale e accogliente.",
+        "paragraph2": "Ogni dettaglio è stato studiato per favorire la fruibilità degli spazi, con soluzioni che coniugano estetica e praticità. L’accessibilità è garantita da percorsi privi di barriere e da una disposizione degli arredi pensata per il comfort di tutti.",
+        "paragraph3": "Scopri le scelte progettuali, i materiali impiegati e il valore di un design attento alle esigenze del cliente."
+      },
+      "tettoLegno": {
+        "title": "Un Tetto di Innovazione: La Nuova Copertura in Legno",
+        "imgAlt": "Tetto in legno",
+        "paragraph1": "Nel cantiere della Residenza Green Valley, la tradizione costruttiva del legno si fonde con le più avanzate tecnologie edilizie. La copertura in legno lamellare garantisce efficienza energetica, durabilità e comfort abitativo, grazie a materiali selezionati e dettagli costruttivi di alta qualità.",
+        "paragraph2": "Il progetto si distingue per l’attenzione all’isolamento termico e alla sostenibilità ambientale, con l’utilizzo di barriere al vapore e sistemi di fissaggio innovativi. Ogni fase della realizzazione è stata seguita da professionisti specializzati, con l’obiettivo di creare un ambiente sicuro e accogliente.",
+        "paragraph3": "Scopri di più sulle tecniche di posa, le soluzioni adottate e il valore aggiunto di un tetto in legno moderno."
+      },
+      "riscaldamentoPavimento": {
+        "title": "Comfort e Sostenibilità: Il Riscaldamento a Pavimento",
+        "imgAlt": "Riscaldamento a pavimento",
+        "paragraph1": "La ristrutturazione degli interni ha visto l’installazione di un impianto radiante a pavimento, soluzione ideale per garantire comfort abitativo e risparmio energetico. L’isolamento perimetrale e la stesura del massetto sono stati eseguiti con precisione, assicurando la massima efficienza del sistema.",
+        "paragraph2": "Questa tecnologia permette una distribuzione uniforme del calore, riducendo i consumi e migliorando la qualità della vita all’interno degli ambienti. Il progetto rappresenta un esempio di come innovazione e attenzione al dettaglio possano trasformare gli spazi abitativi.",
+        "paragraph3": "Approfondisci le fasi di posa, i materiali utilizzati e i vantaggi di un impianto radiante moderno."
+      }
+    },
+    "trustBadges": {
+      "badge1": "Prenotazione Sicura",
+      "badge2": "Supporto 24/7",
+      "badge3": "Miglior Prezzo Garantito"
+    },
+    "articlesSection": {
+      "title": "Articoli e Novità",
+      "subtitle": "Resta aggiornato sulle ultime novità del settore e sui nostri progetti",
+      "readButton": "Leggi Articolo",
+      "socialTitle": "Seguici sui Social Media",
+      "socialDescription": "Resta connesso con noi per vedere i nostri progetti in tempo reale e le ultime novità dal mondo dell'edilizia",
+      "linktreeUrl": "https://sprout.link/sundtbuilds",
+      "linktreeButton": "Visita il nostro Linktree",
+      "quoteButton": "Richiedi Preventivo"
+    },
+    "constructionShowcase": {
+      "title": "I Nostri Progetti",
+      "subtitle": "Esempi della nostra esperienza in edilizia e costruzioni moderne",
+      "projects": [
+        {
+          "type": "video",
+          "src": "./assets/construction-1.mp4",
+          "title": "Costruzione Residenziale",
+          "description": "Progetto di edilizia sostenibile con tecnologie innovative",
+          "alt": "Video di costruzione residenziale"
+        },
+        {
+          "type": "image",
+          "src": "./assets/construction-2.jpg",
+          "title": "Ristrutturazione Urbana",
+          "description": "Riqualificazione di edifici esistenti con impatto sociale",
+          "alt": "Cantiere moderno con tecnologie avanzate"
+        }
+      ],
+      "features": [
+        {
+          "number": "1",
+          "title": "Progettazione",
+          "description": "Analisi approfondita e progettazione personalizzata per ogni esigenza"
+        },
+        {
+          "number": "2",
+          "title": "Costruzione",
+          "description": "Realizzazione con materiali di qualità e tecniche all'avanguardia"
+        },
+        {
+          "number": "3",
+          "title": "Consegna",
+          "description": "Consegna puntuale e supporto post-vendita garantito"
+        }
+      ]
+    },
     "navigation": {
       "home": "Home",
       "about": "Chi Siamo",
@@ -19,6 +140,9 @@
     "services": {
       "title": "I Nostri Servizi",
       "subtitle": "Offriamo soluzioni complete per ogni esigenza edilizia",
+      "ctaTitle": "Pronto per Iniziare il Tuo Progetto?",
+      "ctaDescription": "Contattaci per un preventivo gratuito e personalizzato",
+      "ctaButton": "Richiedi un Preventivo Gratuito",
       "items": [
         {
           "title": "Edilizia Residenziale",
@@ -82,7 +206,38 @@
       "title": "Richiedi un Preventivo Personalizzato",
       "subtitle": "Compila il modulo e riceverai una valutazione gratuita entro 24 ore",
       "form": {
+        "summary": {
+          "title": "Riepilogo Richiesta",
+          "project": "Progetto",
+          "budget": "Budget",
+          "timeline": "Tempistiche",
+          "address": "Indirizzo",
+          "contact": "Contatto"
+        },
+        "toast": {
+          "missingFieldsTitle": "Campi richiesti mancanti",
+          "missingFieldsDescription": "Compila tutti i campi richiesti per continuare.",
+          "successTitle": "Richiesta inviata!",
+          "successDescription": "Ti contatteremo entro 24 ore per il preventivo gratuito."
+        },
+        "step1": "Passo 1 di 4",
+        "step2": "Passo 2 di 4",
+        "step3": "Passo 3 di 4",
+        "step4": "Passo 4 di 4",
+        "progress25": "25% completato",
+        "progress50": "50% completato",
+        "progress75": "75% completato",
+        "progress100": "100% completato"
+        ,
         "projectType": "Tipo di Progetto",
+        "detailsBudget": "Dettagli e Budget",
+        "errors": {
+          "required": "Questo campo è obbligatorio.",
+          "invalidEmail": "Inserisci un indirizzo email valido.",
+          "invalidPhone": "Inserisci un numero di telefono valido.",
+          "minLength": "Il valore inserito è troppo corto.",
+          "maxLength": "Il valore inserito è troppo lungo."
+        },
         "projectTypeOptions": [
           "Nuova Costruzione",
           "Ristrutturazione",
@@ -110,7 +265,9 @@
         "phone": "Telefono",
         "address": "Indirizzo del Progetto",
         "attachments": "Allegati (planimetrie, foto, documenti)",
-        "submit": "Invia Richiesta"
+        "submit": "Invia Richiesta",
+        "message": "Messaggio (Opzionale)",
+        "next": "Avanti"
       }
     },
     "footer": {
@@ -121,14 +278,142 @@
       "registration": "Iscrizione al Registro degli Enti Cooperativi: Numero C142156",
       "phone": "+39 0461 123456",
       "email": "info@ermetes.it",
+      "description": "Società Cooperativa Sociale specializzata in edilizia, manutenzioni e servizi con impatto sociale positivo.",
+      "contactTitle": "Contatti",
+      "servicesTitle": "Servizi",
+      "services": ["Edilizia Residenziale", "Manutenzioni", "Pulizie Professionali", "Consulenza Tecnica"],
+      "linksTitle": "Link Utili",
       "links": {
         "privacy": "Privacy Policy",
         "terms": "Termini e Condizioni",
-        "social": "Impatto Sociale"
-      }
+        "social": "Impatto Sociale",
+        "certifications": "Certificazioni"
+      },
+      "copyright": "© 2025 Sintija Birgele. Tutti i diritti riservati."
     }
   },
   "en": {
+    "projectsScroll": {
+      "quoteButton": "Request Similar Quote",
+      "detailsButton": "More Details",
+    "summaryTitle": "Request Summary",
+      "title": "Our Projects",
+      "subtitle": "Explore our work and its social impact in the community",
+      "categories": ["All", "Residential construction", "Renovation", "Social impact"],
+      "projects": [
+        {
+          "title": "Timber Roof Renovation, Trento",
+          "category": "Residential construction",
+          "description": "Construction of a laminated timber roof for a residential building.",
+          "image": "./assets/Rifacimento copertura edificio Trento.jpg",
+          "icon": "🪵",
+          "extendedInfo": "Roof structure made with laminated timber beams, insulation and vapor barrier for energy efficiency and durability. Work carried out with attention to detail and high-quality materials.",
+          "status": "In progress",
+          "duration": "3 months",
+          "budget": "€ 120K",
+          "features": ["Laminated Timber", "Energy Efficiency", "Insulation", "Durability"]
+        },
+        {
+          "title": "Private Home Renovation, Trento",
+          "category": "Renovation",
+          "description": "Installation of underfloor heating and screed in an existing building.",
+          "image": "./assets/Ristrutturazione abitazione privata, Trento.jpg",
+          "icon": "🏡",
+          "extendedInfo": "Renovation work with installation of underfloor heating, perimeter insulation and screed laying. Improved living comfort and energy savings.",
+          "status": "Completed",
+          "duration": "2 months",
+          "budget": "€ 45K",
+          "features": ["Underfloor Heating", "Insulation", "Comfort", "Energy Efficiency"]
+        },
+        {
+          "title": "Bar Renovation, S.Maurizio Hospital Bolzano",
+          "category": "Social impact",
+          "description": "Creation of modern interiors for a commercial activity with quality materials.",
+          "image": "./assets/Ristrutturazione bar Ospedale S.Maurizio Bolzano.jpg",
+          "icon": "🏢",
+          "extendedInfo": "Turnkey project for the creation of a commercial space: wood flooring, LED lighting, custom furnishings and display windows. Focus on design, functionality and accessibility.",
+          "status": "Completed",
+          "duration": "4 months",
+          "budget": "€ 200K",
+          "features": ["Modern Design", "Accessibility", "Energy Efficiency", "Quality Materials"]
+        }
+      ]
+    },
+    "pages": {
+      "spazioCommerciale": {
+        "title": "Commercial Spaces: Design and Functionality",
+        "imgAlt": "Commercial space",
+        "paragraph1": "Creating a modern commercial environment requires attention to materials, lighting, and accessibility. The project featured wood flooring, LED lighting, and custom furnishings, resulting in a functional and welcoming space.",
+        "paragraph2": "Every detail was designed to enhance usability, with solutions that combine aesthetics and practicality. Accessibility is ensured by barrier-free paths and a layout designed for everyone's comfort.",
+        "paragraph3": "Discover the design choices, materials used, and the value of a customer-focused design."
+      },
+      "tettoLegno": {
+        "title": "A Roof of Innovation: The New Wooden Covering",
+        "imgAlt": "Wooden roof",
+        "paragraph1": "At the Green Valley Residence site, the tradition of wood construction merges with the most advanced building technologies. The laminated wood roof ensures energy efficiency, durability, and living comfort, thanks to selected materials and high-quality construction details.",
+        "paragraph2": "The project stands out for its attention to thermal insulation and environmental sustainability, with the use of vapor barriers and innovative fastening systems. Every phase of the construction was overseen by specialized professionals, aiming to create a safe and welcoming environment.",
+        "paragraph3": "Learn more about installation techniques, adopted solutions, and the added value of a modern wooden roof."
+      },
+      "riscaldamentoPavimento": {
+        "title": "Comfort and Sustainability: Underfloor Heating",
+        "imgAlt": "Underfloor heating",
+        "paragraph1": "The interior renovation included the installation of a radiant underfloor heating system, an ideal solution for comfort and energy savings. Perimeter insulation and screed laying were carried out with precision, ensuring maximum system efficiency.",
+        "paragraph2": "This technology allows for uniform heat distribution, reducing consumption and improving quality of life indoors. The project is an example of how innovation and attention to detail can transform living spaces.",
+        "paragraph3": "Learn more about installation phases, materials used, and the benefits of a modern radiant system."
+      }
+    },
+    "trustBadges": {
+      "badge1": "Secure Booking",
+      "badge2": "24/7 Support",
+      "badge3": "Best Price Guarantee"
+    },
+    "articlesSection": {
+      "title": "Articles & News",
+      "subtitle": "Stay updated on the latest industry news and our projects",
+      "readButton": "Read Article",
+      "socialTitle": "Follow Us on Social Media",
+      "socialDescription": "Stay connected with us to see our projects in real time and the latest news from the construction world",
+      "linktreeUrl": "https://sprout.link/sundtbuilds",
+      "linktreeButton": "Visit our Linktree",
+      "quoteButton": "Get Quote"
+    },
+    "constructionShowcase": {
+      "title": "Our Projects",
+      "subtitle": "Examples of our experience in modern construction and building",
+      "projects": [
+        {
+          "type": "video",
+          "src": "./assets/construction-1.mp4",
+          "title": "Residential Construction",
+          "description": "Sustainable building project with innovative technologies",
+          "alt": "Residential construction video"
+        },
+        {
+          "type": "image",
+          "src": "./assets/construction-2.jpg",
+          "title": "Urban Renovation",
+          "description": "Redevelopment of existing buildings with social impact",
+          "alt": "Modern construction site with advanced technologies"
+        }
+      ],
+      "features": [
+        {
+          "number": "1",
+          "title": "Design",
+          "description": "In-depth analysis and personalized design for every need"
+        },
+        {
+          "number": "2",
+          "title": "Construction",
+          "description": "Execution with quality materials and cutting-edge techniques"
+        },
+        {
+          "number": "3",
+          "title": "Delivery",
+          "description": "On-time delivery and guaranteed after-sales support"
+        }
+      ]
+    },
     "navigation": {
       "home": "Home",
       "about": "About Us",
@@ -148,6 +433,9 @@
     "services": {
       "title": "Our Services",
       "subtitle": "We offer complete solutions for every construction need",
+      "ctaTitle": "Ready to Start Your Project?",
+      "ctaDescription": "Contact us for a free and personalized quote",
+      "ctaButton": "Get Free Quote",
       "items": [
         {
           "title": "Residential Construction",
@@ -211,6 +499,28 @@
       "title": "Request a Personalized Quote",
       "subtitle": "Fill out the form and receive a free evaluation within 24 hours",
       "form": {
+        "summary": {
+          "title": "Request Summary",
+          "project": "Project",
+          "budget": "Budget",
+          "timeline": "Timeline",
+          "address": "Address",
+          "contact": "Contact"
+        },
+        "toast": {
+          "missingFieldsTitle": "Required fields missing",
+          "missingFieldsDescription": "Please fill in all required fields to continue.",
+          "successTitle": "Request sent!",
+          "successDescription": "We will contact you within 24 hours for your free quote."
+        },
+        "step1": "Step 1 of 4",
+        "step2": "Step 2 of 4",
+        "step3": "Step 3 of 4",
+        "step4": "Step 4 of 4",
+        "progress25": "25% complete",
+        "progress50": "50% complete",
+        "progress75": "75% complete",
+        "progress100": "100% complete",
         "projectType": "Project Type",
         "projectTypeOptions": [
           "New Construction",
@@ -239,7 +549,14 @@
         "phone": "Phone",
         "address": "Project Address",
         "attachments": "Attachments (floor plans, photos, documents)",
-        "submit": "Send Request"
+        "submit": "Send Request",
+        "message": "Message (Optional)",
+        "next": "Next",
+        "success": "Your request has been sent successfully!",
+        "error": "There was an error sending your request. Please try again.",
+        "required": "Required field",
+        "optional": "Optional",
+        "back": "Back"
       }
     },
     "footer": {
@@ -250,11 +567,18 @@
       "registration": "Register of Cooperative Entities: Numero C142156",
       "phone": "+39 0461 123456",
       "email": "info@ermetes.it",
+      "description": "Social Cooperative Society specialized in construction, maintenance and services with positive social impact.",
+      "contactTitle": "Contact",
+      "servicesTitle": "Services",
+      "services": ["Residential Construction", "Maintenance", "Professional Cleaning", "Technical Consulting"],
+      "linksTitle": "Useful Links",
       "links": {
         "privacy": "Privacy Policy",
         "terms": "Terms and Conditions",
-        "social": "Social Impact"
-      }
+        "social": "Social Impact",
+        "certifications": "Certifications"
+      },
+      "copyright": "© 2025 Sintija Birgele. All rights reserved."
     }
   }
 }
