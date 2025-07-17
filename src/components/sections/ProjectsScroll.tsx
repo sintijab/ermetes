@@ -1,68 +1,31 @@
 import { useRef, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { useLanguage } from "@/contexts/LanguageContext";
 
-const projects = [
-  {
-    title: "Residenza Green Valley",
-    category: "Edilizia Residenziale",
-    description: "Complesso residenziale eco-sostenibile con 24 appartamenti e spazi comuni",
-    image: './assets/residential-project.jpg',
-    icon: "🏠",
-    extendedInfo: "Progetto di edilizia sostenibile che combina tecnologie innovative e design moderno. Include pannelli solari, sistema di raccolta acqua piovana e giardini pensili per massimizzare l'efficienza energetica. Il progetto ha coinvolto 8 persone in percorsi di inserimento lavorativo.",
-    status: "Completato",
-    duration: "18 mesi",
-    budget: "€ 2.8M",
-    features: ["Classe A4", "Pannelli Solari", "Giardini Pensili", "Smart Home"]
-  },
-  {
-    title: "Ristrutturazione Palazzo Storico",
-    category: "Ristrutturazione",
-    description: "Recupero conservativo di palazzo del XVI secolo nel centro storico di Trento",
-    image: './assets/historic-renovation.jpg',
-    icon: "🏛️",
-    extendedInfo: "Intervento di restauro che ha preservato l'architettura storica integrando tecnologie moderne. Collaborazione con la Soprintendenza per mantenere l'autenticità dell'edificio. 6 persone hanno acquisito competenze specialistiche in restauro.",
-    status: "In corso",
-    duration: "24 mesi",
-    budget: "€ 1.5M",
-    features: ["Restauro Conservativo", "Antisismico", "Efficienza Energetica", "Accessibilità"]
-  },
-  {
-    title: "Centro Sociale San Martino",
-    category: "Impatto Sociale",
-    description: "Nuovo centro comunitario con spazi per attività sociali e formazione professionale",
-    image: './assets/community-center.jpg',
-    icon: "🤝",
-    extendedInfo: "Progetto che ha coinvolto 15 persone svantaggiate nel processo costruttivo, offrendo formazione e opportunità lavorative. Il centro ospita attività per la comunità locale e rappresenta un modello di costruzione sociale.",
-    status: "Completato",
-    duration: "12 mesi",
-    budget: "€ 850K",
-    features: ["Inserimento Lavorativo", "Formazione", "Spazi Comuni", "Barrier-Free"]
-  },
-  {
-    title: "Manutenzione Scuole Provinciali",
-    category: "Manutenzione",
-    description: "Programma di manutenzione straordinaria per 12 istituti scolastici del Trentino",
-    video: './assets/maintenance.mp4',
-    icon: "🔧",
-    extendedInfo: "Interventi coordinati di manutenzione che hanno coinvolto squadre miste con personale qualificato e persone in inserimento lavorativo, garantendo standard di sicurezza elevati. 25 persone hanno completato percorsi formativi.",
-    status: "In corso",
-    duration: "36 mesi",
-    budget: "€ 3.2M",
-    features: ["Sicurezza", "Efficienza", "Formazione", "Sostenibilità"]
-  }
-];
-
-const categories = ["Tutti", "Edilizia Residenziale", "Ristrutturazione", "Impatto Sociale", "Manutenzione"];
 
 const ProjectsScroll = () => {
+  const { content } = useLanguage();
+  const projectsScroll = content.projectsScroll;
+  const projects = projectsScroll?.projects || [];
+  const categories = (projectsScroll?.categories && projectsScroll.categories.length > 0)
+    ? projectsScroll.categories
+    : ["All"];
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [selectedCategory, setSelectedCategory] = useState("Tutti");
+  const [selectedCategory, setSelectedCategory] = useState(categories[0]);
 
-  const filteredProjects = selectedCategory === "Tutti" 
-    ? projects 
-    : projects.filter(project => project.category === selectedCategory);
+  // Reset selectedCategory to 'All' when categories change (i.e., language switch)
+  useEffect(() => {
+    setSelectedCategory(categories[0]);
+  }, [categories]);
+
+  // Normalize category names for filtering (handle translation/case)
+  const normalize = (str: string) => str.trim().toLowerCase().replace(/\s+/g, " ");
+  let filteredProjects = projects;
+  if (categories.length > 0 && selectedCategory && normalize(selectedCategory) !== normalize(categories[0])) {
+    filteredProjects = projects.filter(project => normalize(project.category) === normalize(selectedCategory));
+  }
 
   useEffect(() => {
     const handleScroll = () => {
@@ -97,10 +60,10 @@ const ProjectsScroll = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center sm:mb-4 md:mb-8">
             <h2 className="text-2xl sm:text-3xl font-light text-foreground mb-4">
-              I Nostri Progetti
+              {projectsScroll?.title || 'Our Projects'}
             </h2>
             <p className="md:text-xl sm:text-md text-muted-foreground max-w-3xl mx-auto font-light">
-              Esplora i nostri lavori e il loro impatto sociale nella comunità
+              {projectsScroll?.subtitle || 'Explore our work and its social impact in the community'}
             </p>
           </div>
           
@@ -154,10 +117,6 @@ const ProjectsScroll = () => {
                 >
                   <div className="relative">
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent backdrop-blur-sm transition-all duration-300 group-hover:from-black/70" />
-                    {project.video && <video
-                      src={project.video}
-                      className="w-full h-[450px] object-cover transition-transform duration-500 group-hover:scale-105"
-                    />}
                     {project.image && <img
                       src={project.image}
                       alt={project.title}
@@ -167,36 +126,32 @@ const ProjectsScroll = () => {
                       <Badge variant="secondary" className="w-fit mb-4 bg-white/90 text-foreground font-semibold px-3 py-1">
                         {project.category}
                       </Badge>
+                       <Badge 
+                            variant={project.status === "Completato" ? "default" : "secondary"} 
+                            className="mb-4 w-fit"
+                          >
+                            {project.status}
+                          </Badge>
                       <h3 className="text-3xl font-bold text-white mb-3">
                         {project.title}
                       </h3>
                       <p className="text-white/90 leading-relaxed">
                         {project.description}
                       </p>
+                      
                     </div>
                   </div>
 
                   {/* Expanded Content */}
                   {activeIndex === index && (
                     <div 
-                      className="absolute inset-0 bg-[#00338D]/95 backdrop-blur-md p-8 animate-fade-in"
+                      className="relative inset-0 bg-[#00338D]/95 backdrop-blur-md p-8 pb-12 animate-fade-in"
                     >
                       <div className="h-full flex flex-col justify-between">
                         <div>
                           <div className="flex items-center justify-between mb-4">
-                            <h3 className="text-3xl font-bold text-white">
-                              {project.title}
-                            </h3>
                             <div className="text-3xl">{project.icon}</div>
                           </div>
-                          
-                          <Badge 
-                            variant={project.status === "Completato" ? "default" : "secondary"} 
-                            className="mb-4"
-                          >
-                            {project.status}
-                          </Badge>
-                          
                           <p className="text-white/90 mb-6 leading-relaxed">
                             {project.extendedInfo}
                           </p>
@@ -221,25 +176,20 @@ const ProjectsScroll = () => {
                           </div>
                         </div>
                         
-                        <div className="space-y-3">
+                        <div className="space-y-3 w-full items-stretch flex flex-col">
                           <Button 
                             className="w-full bg-primary hover:bg-primary/90"
                             size="lg"
                             onClick={() => {
-                              const element = document.getElementById('quote');
-                              if (element) {
-                                element.scrollIntoView({ behavior: 'smooth' });
-                              }
+                              setTimeout(() => {
+                                const element = document.getElementById('quote');
+                                if (element) {
+                                  element.scrollIntoView({ behavior: 'smooth' });
+                                }
+                              }, 100);
                             }}
                           >
-                            Richiedi Preventivo Simile
-                          </Button>
-                          <Button 
-                            variant="outline" 
-                            className="w-full border-white text-white hover:bg-white hover:text-foreground"
-                            size="lg"
-                          >
-                            Maggiori Dettagli
+                            {content.projectsScroll?.quoteButton || content.hero.cta}
                           </Button>
                         </div>
                       </div>

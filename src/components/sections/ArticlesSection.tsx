@@ -6,7 +6,8 @@ import { Calendar, Clock, ExternalLink } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 const ArticlesSection = () => {
-  const { articles } = useLanguage();
+  const { articles, content } = useLanguage();
+  const articlesSection = content.articlesSection;
 
   return (
     <section id="articles" className="py-20 bg-background">
@@ -14,10 +15,10 @@ const ArticlesSection = () => {
         {/* Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-foreground mb-4">
-            Articoli e Novità
+            {articlesSection.title}
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Resta aggiornato sulle ultime novità del settore e sui nostri progetti
+            {articlesSection.subtitle}
           </p>
         </div>
 
@@ -59,7 +60,7 @@ const ArticlesSection = () => {
                   {article.excerpt}
                 </CardDescription>
                 <Button variant="outline" className="w-full group/btn">
-                  Leggi Articolo
+                  {articlesSection.readButton}
                   <ExternalLink className="h-4 w-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
                 </Button>
               </CardContent>
@@ -70,18 +71,18 @@ const ArticlesSection = () => {
         {/* Social Media Integration */}
         <div className="bg-muted/50 rounded-lg p-8 text-center">
           <h3 className="text-2xl font-semibold text-foreground mb-4">
-            Seguici sui Social Media
+            {articlesSection.socialTitle}
           </h3>
           <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-            Resta connesso con noi per vedere i nostri progetti in tempo reale e le ultime novità dal mondo dell'edilizia
+            {articlesSection.socialDescription}
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Button 
               variant="outline" 
               className="min-w-[200px]"
-              onClick={() => window.open('https://sprout.link/sundtbuilds', '_blank')}
+              onClick={() => window.open(articlesSection.linktreeUrl, '_blank')}
             >
-              Visita il nostro Linktree
+              {articlesSection.linktreeButton}
               <ExternalLink className="h-4 w-4 ml-2" />
             </Button>
             <Button 
@@ -93,7 +94,7 @@ const ArticlesSection = () => {
                 }
               }}
             >
-              Richiedi Preventivo
+              {articlesSection.quoteButton}
             </Button>
           </div>
         </div>

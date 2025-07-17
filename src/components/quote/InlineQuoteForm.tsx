@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useModal } from '@/contexts/ModalContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -7,11 +8,26 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { ArrowRight, ArrowLeft, Calculator, Building, User, FileText, CheckCircle } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const InlineQuoteForm = () => {
+  const { closeModal } = useModal();
   const { toast } = useToast();
   const [currentStep, setCurrentStep] = useState(1);
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<{
+    projectType: string;
+    projectDetails: string;
+    budget: string;
+    timeline: string;
+    address: string;
+    name: string;
+    phone: string;
+    email: string;
+    message: string;
+    images: FileList | null;
+    projectFile: File | null;
+    metricFile: File | null;
+  }>({
     projectType: '',
     projectDetails: '',
     budget: '',
@@ -20,10 +36,14 @@ const InlineQuoteForm = () => {
     name: '',
     phone: '',
     email: '',
-    message: ''
+    message: '',
+    images: null,
+    projectFile: null,
+    metricFile: null
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleInputChange = (field: string, value: string) => {
+  const handleInputChange = (field: string, value: string | File | FileList | null) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
@@ -32,8 +52,8 @@ const InlineQuoteForm = () => {
       setCurrentStep(prev => Math.min(prev + 1, 4));
     } else {
       toast({
-        title: "Campi richiesti mancanti",
-        description: "Compila tutti i campi richiesti per continuare.",
+        title: content.quote.form.toast.missingFieldsTitle,
+        description: content.quote.form.toast.missingFieldsDescription,
         variant: "destructive",
       });
     }
@@ -43,13 +63,43 @@ const InlineQuoteForm = () => {
     setCurrentStep(prev => Math.max(prev - 1, 1));
   };
 
-  const handleSubmit = () => {
-    console.log(formData);
-    toast({
-      title: "Richiesta inviata!",
-      description: "Ti contatteremo entro 24 ore per il preventivo gratuito.",
+  const handleSubmit = async () => {
+    setIsSubmitting(true);
+    const form = new FormData();
+    Object.keys(formData).forEach((key) => {
+      if (key === 'images' && formData.images instanceof FileList) {
+        Array.from(formData.images).forEach((file, idx) => {
+          form.append(`images_${idx+1}`, file);
+        });
+      } else if (key === 'projectFile' && formData.projectFile instanceof File) {
+        form.append('projectFile', formData.projectFile);
+      } else if (key === 'metricFile' && formData.metricFile instanceof File) {
+        form.append('metricFile', formData.metricFile);
+      } else if (
+        key !== 'images' && key !== 'projectFile' && key !== 'metricFile'
+      ) {
+        form.append(key, formData[key]);
+      }
     });
-    
+
+    // Debug: log all FormData keys and values
+    for (let pair of form.entries()) {
+      console.log(pair[0], pair[1]);
+    }
+
+    try {
+      await fetch('https://script.google.com/macros/s/AKfycbxkSY9JVdICBvU84yiuhdY7N7UAcxZYYwH1D57h27NDme9wW3fPHKpgK2kVdIH9XAc0Ig/exec', {
+        method: 'POST',
+        body: form,
+      });
+    } catch (e) {
+      console.error(e);
+    }
+    toast({
+      title: content.quote.form.toast.successTitle,
+      description: content.quote.form.toast.successDescription,
+    });
+    closeModal();
     // Reset form
     setFormData({
       projectType: '',
@@ -60,9 +110,13 @@ const InlineQuoteForm = () => {
       name: '',
       phone: '',
       email: '',
-      message: ''
+      message: '',
+      images: null,
+      projectFile: null,
+      metricFile: null
     });
     setCurrentStep(1);
+    setIsSubmitting(false);
   };
 
   const isStepValid = () => {
@@ -80,29 +134,12 @@ const InlineQuoteForm = () => {
     }
   };
 
-  const projectTypes = [
-    "Nuova Costruzione",
-    "Ristrutturazione", 
-    "Manutenzione",
-    "Consulenza Tecnica",
-    "Altro"
-  ];
+  const { content } = useLanguage();
+  const projectTypes = content.quote.form.projectTypeOptions;
 
-  const budgetRanges = [
-    "Meno di €10.000",
-    "€10.000 - €25.000",
-    "€25.000 - €50.000",
-    "€50.000 - €100.000",
-    "Oltre €100.000"
-  ];
+  const budgetRanges = content.quote.form.budgetOptions;
 
-  const timelineOptions = [
-    "Entro 1 mese",
-    "1-3 mesi",
-    "3-6 mesi",
-    "6-12 mesi",
-    "Oltre 12 mesi"
-  ];
+  const timelineOptions = content.quote.form.timelineOptions;
 
   const getStepIcon = (step: number) => {
     switch (step) {
@@ -120,10 +157,10 @@ const InlineQuoteForm = () => {
         return (
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-white mb-2">Tipo di Progetto *</label>
+              <label className="block text-sm font-medium text-neutral-900 mb-2">{content.quote.form.projectType} *</label>
               <Select value={formData.projectType} onValueChange={(value) => handleInputChange('projectType', value)}>
-                <SelectTrigger className="bg-white/20 border-white/30 text-white placeholder:text-white/70">
-                  <SelectValue placeholder="Seleziona il tipo di progetto" />
+                <SelectTrigger className="bg-white border-primary/30 text-neutral-900 placeholder:text-neutral-500">
+                  <SelectValue placeholder={content.quote.form.projectType} />
                 </SelectTrigger>
                 <SelectContent className="bg-popover border border-border">
                   {projectTypes.map((type, index) => (
@@ -133,12 +170,12 @@ const InlineQuoteForm = () => {
               </Select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-white mb-2">Descrizione del Progetto *</label>
+              <label className="block text-sm font-medium text-neutral-900 mb-2">{content.quote.form.description} *</label>
               <Textarea
-                placeholder="Descrivi brevemente il tuo progetto..."
+                placeholder={content.quote.form.description}
                 value={formData.projectDetails}
                 onChange={(e) => handleInputChange('projectDetails', e.target.value)}
-                className="bg-white/20 border-white/30 text-white placeholder:text-white/70 min-h-[100px]"
+                className="bg-white border-primary/30 text-neutral-900 placeholder:text-neutral-500 min-h-[100px]"
               />
             </div>
           </div>
@@ -147,10 +184,10 @@ const InlineQuoteForm = () => {
         return (
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-white mb-2">Budget Stimato *</label>
+              <label className="block text-sm font-medium text-neutral-900 mb-2">{content.quote.form.budget} *</label>
               <Select value={formData.budget} onValueChange={(value) => handleInputChange('budget', value)}>
-                <SelectTrigger className="bg-white/20 border-white/30 text-white placeholder:text-white/70">
-                  <SelectValue placeholder="Seleziona il budget" />
+                <SelectTrigger className="bg-white border-primary/30 text-neutral-900 placeholder:text-neutral-500">
+                  <SelectValue placeholder={content.quote.form.budget} />
                 </SelectTrigger>
                 <SelectContent className="bg-popover border border-border">
                   {budgetRanges.map((range, index) => (
@@ -160,10 +197,10 @@ const InlineQuoteForm = () => {
               </Select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-white mb-2">Tempistiche *</label>
+              <label className="block text-sm font-medium text-neutral-900 mb-2">{content.quote.form.timeline} *</label>
               <Select value={formData.timeline} onValueChange={(value) => handleInputChange('timeline', value)}>
-                <SelectTrigger className="bg-white/20 border-white/30 text-white placeholder:text-white/70">
-                  <SelectValue placeholder="Quando vorresti iniziare?" />
+                <SelectTrigger className="bg-white border-primary/30 text-neutral-900 placeholder:text-neutral-500">
+                  <SelectValue placeholder={content.quote.form.timeline} />
                 </SelectTrigger>
                 <SelectContent className="bg-popover border border-border">
                   {timelineOptions.map((option, index) => (
@@ -173,13 +210,13 @@ const InlineQuoteForm = () => {
               </Select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-white mb-2">Indirizzo del Progetto *</label>
+              <label className="block text-sm font-medium text-neutral-900 mb-2">{content.quote.form.address} *</label>
               <Input
                 type="text"
-                placeholder="Via, Città, CAP"
+                placeholder={content.quote.form.address}
                 value={formData.address}
                 onChange={(e) => handleInputChange('address', e.target.value)}
-                className="bg-white/20 border-white/30 text-white placeholder:text-white/70"
+                className="bg-white border-primary/30 text-neutral-900 placeholder:text-neutral-500"
               />
             </div>
           </div>
@@ -188,42 +225,70 @@ const InlineQuoteForm = () => {
         return (
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-white mb-2">Nome Completo *</label>
+              <label className="block text-sm font-medium text-neutral-900 mb-2">{content.quote.form.name} *</label>
               <Input
                 type="text"
-                placeholder="Il tuo nome completo"
+                placeholder={content.quote.form.name}
                 value={formData.name}
                 onChange={(e) => handleInputChange('name', e.target.value)}
-                className="bg-white/20 border-white/30 text-white placeholder:text-white/70"
+                className="bg-white border-primary/30 text-neutral-900 placeholder:text-neutral-500"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-white mb-2">Telefono *</label>
+              <label className="block text-sm font-medium text-neutral-900 mb-2">{content.quote.form.phone} *</label>
               <Input
                 type="tel"
-                placeholder="Il tuo numero di telefono"
+                placeholder={content.quote.form.phone}
                 value={formData.phone}
                 onChange={(e) => handleInputChange('phone', e.target.value)}
-                className="bg-white/20 border-white/30 text-white placeholder:text-white/70"
+                className="bg-white border-primary/30 text-neutral-900 placeholder:text-neutral-500"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-white mb-2">Email *</label>
+              <label className="block text-sm font-medium text-neutral-900 mb-2">{content.quote.form.email} *</label>
               <Input
                 type="email"
-                placeholder="La tua email"
+                placeholder={content.quote.form.email}
                 value={formData.email}
                 onChange={(e) => handleInputChange('email', e.target.value)}
-                className="bg-white/20 border-white/30 text-white placeholder:text-white/70"
+                className="bg-white border-primary/30 text-neutral-900 placeholder:text-neutral-500"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-white mb-2">Messaggio (Opzionale)</label>
+              <label className="block text-sm font-medium text-neutral-900 mb-2">{content.quote.form.message || 'Messaggio (Opzionale)'} </label>
               <Textarea
-                placeholder="Qualcosa da aggiungere?"
+                placeholder={content.quote.form.message || 'Messaggio (Opzionale)'}
                 value={formData.message}
                 onChange={(e) => handleInputChange('message', e.target.value)}
-                className="bg-white/20 border-white/30 text-white placeholder:text-white/70"
+                className="bg-white border-primary/30 text-neutral-900 placeholder:text-neutral-500"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-neutral-900 mb-2">Carica immagini</label>
+              <Input
+                type="file"
+                multiple
+                accept="image/*"
+                onChange={(e) => handleInputChange('images', e.target.files)}
+                className="bg-white border-primary/30 text-neutral-900 placeholder:text-neutral-500"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-neutral-900 mb-2">Carica il progetto</label>
+              <Input
+                type="file"
+                accept=".pdf,.doc,.docx,.zip,.rar"
+                onChange={(e) => handleInputChange('projectFile', e.target.files ? e.target.files[0] : null)}
+                className="bg-white border-primary/30 text-neutral-900 placeholder:text-neutral-500"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-neutral-900 mb-2">Carica il computo metrico</label>
+              <Input
+                type="file"
+                accept=".pdf,.xls,.xlsx,.csv,.zip,.rar"
+                onChange={(e) => handleInputChange('metricFile', e.target.files ? e.target.files[0] : null)}
+                className="bg-white border-primary/30 text-neutral-900 placeholder:text-neutral-500"
               />
             </div>
           </div>
@@ -232,13 +297,13 @@ const InlineQuoteForm = () => {
         return (
           <div className="space-y-4 text-center">
             <CheckCircle className="h-16 w-16 text-green-400 mx-auto" />
-            <h3 className="text-xl font-medium text-white">Riepilogo Richiesta</h3>
-            <div className="bg-white/10 rounded-lg p-4 text-left text-white/90 space-y-2">
-              <p><strong>Progetto:</strong> {formData.projectType}</p>
-              <p><strong>Budget:</strong> {formData.budget}</p>
-              <p><strong>Timeline:</strong> {formData.timeline}</p>
-              <p><strong>Indirizzo:</strong> {formData.address}</p>
-              <p><strong>Contatto:</strong> {formData.name} - {formData.phone}</p>
+            <h3 className="text-xl font-medium text-blue-900">{content.quote.form.summary.title}</h3>
+            <div className="bg-white/10 rounded-lg p-4 text-left text-blue-900 space-y-2">
+              <p className="text-blue-900"><strong>{content.quote.form.summary.project}:</strong> {formData.projectType}</p>
+              <p className="text-blue-900"><strong>{content.quote.form.summary.budget}:</strong> {formData.budget}</p>
+              <p className="text-blue-900"><strong>{content.quote.form.summary.timeline}:</strong> {formData.timeline}</p>
+              <p className="text-blue-900"><strong>{content.quote.form.summary.address}:</strong> {formData.address}</p>
+              <p className="text-blue-900"><strong>{content.quote.form.summary.contact}:</strong> {formData.name} - {formData.phone}</p>
             </div>
           </div>
         );
@@ -248,39 +313,39 @@ const InlineQuoteForm = () => {
   };
 
   const stepTitles = [
-    "Tipo di Progetto",
-    "Dettagli e Budget", 
-    "Informazioni di Contatto",
-    "Conferma"
+    content.quote.form.step1,
+    content.quote.form.step2,
+    content.quote.form.step3,
+    content.quote.form.step4
   ];
 
   const StepIcon = getStepIcon(currentStep);
   const progress = (currentStep / 4) * 100;
 
   return (
-    <Card className="bg-white/10 backdrop-blur-sm border border-white/20 shadow-lg">
+    <Card className="bg-white border border-primary/20 shadow-lg">
       <CardHeader className="pb-4">
         <div className="flex items-center mb-4">
-          <Calculator className="h-5 w-5 text-white mr-2" />
-          <CardTitle className="text-lg font-medium text-white">Preventivo Gratuito</CardTitle>
+          <Calculator className="h-5 w-5 text-primary mr-2" />
+          <CardTitle className="text-lg font-medium text-primary">{content.quote.title}</CardTitle>
         </div>
         
         <div className="space-y-2">
-          <div className="flex items-center justify-between text-sm text-white/70">
-            <span>Passo {currentStep} di 4</span>
-            <span>{Math.round(progress)}% completato</span>
+          <div className="flex items-center justify-between text-sm text-primary/70">
+            <span>{content.quote.form[`step${currentStep}`]}</span>
+            <span>{content.quote.form[`progress${Math.round(progress)}`] || `${Math.round(progress)}%`}</span>
           </div>
-          <Progress value={progress} className="h-2 bg-white/20" />
+          <Progress value={progress} className="h-2 bg-primary/20" />
         </div>
         
         <div className="flex items-center mt-4">
-          <StepIcon className="h-5 w-5 text-white mr-2" />
-          <h3 className="text-base font-medium text-white">{stepTitles[currentStep - 1]}</h3>
+          <StepIcon className="h-5 w-5 text-primary mr-2" />
+          <h3 className="text-base font-medium text-primary">{stepTitles[currentStep - 1]}</h3>
         </div>
       </CardHeader>
       
       <CardContent>
-        {renderStep()}
+        <div className="text-neutral-900">{renderStep()}</div>
         
         <div className="flex justify-between mt-6">
           {currentStep > 1 && (
@@ -300,16 +365,29 @@ const InlineQuoteForm = () => {
                 onClick={handleNext}
                 className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium"
               >
-                Avanti
+                {content.quote.form.next || 'Avanti'}
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             ) : (
               <Button 
                 onClick={handleSubmit}
                 className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium"
+                disabled={isSubmitting}
               >
-                Invia Richiesta
-                <CheckCircle className="ml-2 h-4 w-4" />
+                {isSubmitting ? (
+                  <span className="flex items-center">
+                    <svg className="animate-spin h-5 w-5 mr-2 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+                    </svg>
+                    {content.quote.form.submit}
+                  </span>
+                ) : (
+                  <>
+                    {content.quote.form.submit}
+                    <CheckCircle className="ml-2 h-4 w-4" />
+                  </>
+                )}
               </Button>
             )}
           </div>
